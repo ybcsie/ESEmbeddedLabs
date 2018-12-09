@@ -39,6 +39,12 @@
 #define BR15_BIT 31
 #define BS15_BIT 15
 
+unsigned int global_i = 1;
+unsigned int global_j = 0x1234;
+unsigned int global_k = 0x2234;
+
+unsigned int global_arr[10];
+
 void blink(void)
 {
 	SET_BIT(RCC_BASE + RCC_AHB1ENR_OFFSET, GPIODEN_BIT);
@@ -58,19 +64,18 @@ void blink(void)
 	CLEAR_BIT(GPIOD_BASE + GPIOx_PUPDR_OFFSET, PUPDR15_1_BIT);
 	CLEAR_BIT(GPIOD_BASE + GPIOx_PUPDR_OFFSET, PUPDR15_0_BIT);
 
-	unsigned int i;
 	while (1)
 	{
 		//set GPIOD15
 		SET_BIT(GPIOD_BASE + GPIOx_BSRR_OFFSET, BS15_BIT);
 
-		for (i = 0; i < 100000; i++)
+		for (global_i = 0; global_i < 100000; global_i++)
 			;
 
 		//reset GPIOD15
 		SET_BIT(GPIOD_BASE + GPIOx_BSRR_OFFSET, BR15_BIT);
 
-		for (i = 0; i < 100000; i++)
+		for (global_i = 0; global_i < 100000; global_i++)
 			;
 	}
 }
