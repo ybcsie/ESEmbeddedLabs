@@ -10,12 +10,12 @@ SECTIONS
 	{
 		KEEP(*(.isr_vectors))
 		*(.text)
-        _mydata_lma_start = .;
+		_mydata_lma_start = .;
 	} > FLASH
 
 	.mydata : AT(_mydata_lma_start)
 	{
-        _mydata_vma_start = .;
+		_mydata_vma_start = .;
 		*(.data)
 	} > SRAM
 
