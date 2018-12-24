@@ -18,22 +18,14 @@ void op_sysclk(uint8_t div)
 	if (div == 1)
 		CLEAR_BIT(RCC_BASE + RCC_CFGR_OFFSET, MCO2PRE_2_BIT);
 
-	else
+	else if (div >= 2 && div <= 5)
 	{
 		SET_BIT(RCC_BASE + RCC_CFGR_OFFSET, MCO2PRE_2_BIT);
-
-		if ((div - 2) >> 1)
-			SET_BIT(RCC_BASE + RCC_CFGR_OFFSET, MCO2PRE_1_BIT); //div == 4 or 5
-
-		else
-			CLEAR_BIT(RCC_BASE + RCC_CFGR_OFFSET, MCO2PRE_1_BIT); //div == 2 or 3
-
-		if (div & (uint8_t)1)
-			SET_BIT(RCC_BASE + RCC_CFGR_OFFSET, MCO2PRE_0_BIT); //div == 3 or 5
-
-		else
-			CLEAR_BIT(RCC_BASE + RCC_CFGR_OFFSET, MCO2PRE_0_BIT); //div == 2 or 4
+		REG(RCC_BASE + RCC_CFGR_OFFSET) = (REG(RCC_BASE + RCC_CFGR_OFFSET) & ~(((uint32_t)0b11) << (MCO2PRE_0_BIT))) | ((uint32_t)(div - 2) << (MCO2PRE_0_BIT));
 	}
+	else
+		while (1)
+			;
 
 	SET_BIT(RCC_BASE + RCC_AHB1ENR_OFFSET, GPIO_EN_BIT(GPIO_PORTC));
 
@@ -59,7 +51,8 @@ void set_sysclk_pll(void)
 	????????
 
 	//wait
-	while (READ_BIT(RCC_BASE + RCC_CR_OFFSET, HSERDY_BIT) != 1);
+	while (READ_BIT(RCC_BASE + RCC_CR_OFFSET, HSERDY_BIT) != 1)
+		;
 
 	//set pll
 	???????? //use HSE for PLL source
