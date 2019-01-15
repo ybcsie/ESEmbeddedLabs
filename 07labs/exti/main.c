@@ -16,7 +16,7 @@ int main(void)
 	//SYSCFG Configurations
 	??????
 
-	//EXIT Configurations
+	//EXTI Configurations
 	??????
 
 	//NVIC Configurations
