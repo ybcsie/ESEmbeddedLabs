@@ -8,13 +8,9 @@ SECTIONS
 {
 	.mytext :
 	{
-		KEEP(*(.vector_table))
+		KEEP(*(.vecter_table))
 		*(.text)
 	} > FLASH
 
-	.mydata :
-	{
-		*(.data)
-	} > SRAM
-
+	_msp_init = ORIGIN(SRAM) + LENGTH(SRAM);
 }
