@@ -121,6 +121,7 @@
 
 #define USART_SR_OFFSET 0x00
 #define TXE_BIT 7
+#define TC_BIT 6
 #define RXNE_BIT 5
 #define ORE_BIT 3
 

@@ -1,6 +1,5 @@
 #include <stdint.h>
 #include "reg.h"
-#include "blink.h"
 
 void init_usart1(void)
 {
